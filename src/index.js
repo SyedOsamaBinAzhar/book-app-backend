@@ -1,5 +1,7 @@
 const express = require('express');
 const authRoute = require('../src/routes/auth');
+const postRoute = require('../src/routes/posts');
+
 
 require('./db/mongoose');
 
@@ -12,6 +14,8 @@ app.use(express.json())
 
 //consuming routes
 app.use('/api/user',authRoute);
+app.use('/api/posts',postRoute);
+
 
 app.listen(port, () => {
     console.log("Server is up on port " + port);
