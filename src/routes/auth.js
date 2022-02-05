@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 
 router.post('/register', async (req, res) => {
 
+    // console.log(req.body);
+
     //If user is already present in DB
-    const userExist = await User.findOne({ email : req.body.email});
-    if(userExist) return res.status(400).send("This email already exists.")        
+    const userExist = await User.findOne({
+        email: req.body.email
+    });
+    if (userExist) return res.status(400).send("This email already exists.")
 
 
     //HASH AND SALT PASSWORD
@@ -28,8 +31,13 @@ router.post('/register', async (req, res) => {
     //SAVE USER
     try {
         const savedUser = await user.save();
+        console.log(savedUser);
         //201 -> user posted
-        res.status(201).send({user : user._id})
+        res.status(201).send({
+            userId: savedUser._id,
+            usersName: savedUser.name,
+            usersEmail: savedUser.email
+        })
     } catch (error) {
         res.status(400).send(error)
     }
@@ -39,18 +47,29 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     //If user is present in DB
-    const user = await User.findOne({ email : req.body.email});
-    if(!user) return res.status(400).send("Email not found!")
+    const user = await User.findOne({
+        email: req.body.email
+    });
+    if (!user) return res.status(400).send("Email not found!")
 
     //Checking password
-    console.log(user, req.body);
-    // console.log(user);
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     console.log(validPassword);
-    if(!validPassword) return res.status(400).send("Incorrect Password!")
+    if (!validPassword) return res.status(400).send("Incorrect Password!")
 
-    const token = jwt.sign({ _id : user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send(token)
+    // console.log(user);
+
+    const token = jwt.sign({
+        _id: user._id
+    }, process.env.TOKEN_SECRET);
+    res.header('auth-token', token).send({
+        token,
+        userId: user._id,
+        userName: user.name,
+        userEmail: user.email
+    })
 })
+
+
 
 module.exports = router
