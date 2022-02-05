@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 
 router.post('/register', async (req, res) => {
 
+
     //If user is already present in DB
     const userExist = await User.findOne({
         email: req.body.email
@@ -29,7 +30,6 @@ router.post('/register', async (req, res) => {
     //SAVE USER
     try {
         const savedUser = await user.save();
-        console.log(savedUser);
         //201 -> user posted
         res.status(201).send({
             userId: savedUser._id,
@@ -44,6 +44,7 @@ router.post('/register', async (req, res) => {
 
 
 router.post('/login', async (req, res) => {
+    
     //If user is present in DB
     const user = await User.findOne({
         email: req.body.email
@@ -52,10 +53,8 @@ router.post('/login', async (req, res) => {
 
     //Checking password
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    console.log(validPassword);
     if (!validPassword) return res.status(400).send("Incorrect Password!")
 
-    // console.log(user);
 
     const token = jwt.sign({
         _id: user._id

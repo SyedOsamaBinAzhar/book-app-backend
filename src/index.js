@@ -16,7 +16,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 //consuming json present in request
- 
+ app.use(express.json());
 
 // app.use(busboy());
 

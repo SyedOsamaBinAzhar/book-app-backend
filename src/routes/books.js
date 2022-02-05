@@ -46,7 +46,7 @@ router.post('/books', upload.single('fileName'), async (req, res, next) => {
         downloadUrl = await getDownloadURL(ref(spaceRef));
 
     } catch (error) {
-        console.log(error);
+        res.send(error);
     }
 
     //Create And Validate a newbook
@@ -80,7 +80,7 @@ router.get('/books', async (req, res, next) => {
 
     try {
         const books = await Book.find({});
-        console.log(books);
+        // console.log(books);
         res.status(200).send(books)
     } catch (error) {
         res.status(400).send(error);
