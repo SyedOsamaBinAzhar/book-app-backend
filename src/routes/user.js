@@ -19,7 +19,6 @@ router.patch('/users/:id', async (req, res) => {
     } catch (error) {
         res.status(400).send(e);
     }
-        
 
 })
 

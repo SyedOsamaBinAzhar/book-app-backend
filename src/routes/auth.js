@@ -33,8 +33,8 @@ router.post('/register', async (req, res) => {
         //201 -> user posted
         res.status(201).send({
             userId: savedUser._id,
-            usersName: savedUser.name,
-            usersEmail: savedUser.email
+            userName: savedUser.name,
+            userEmail: savedUser.email
         })
     } catch (error) {
         res.status(400).send(error)
