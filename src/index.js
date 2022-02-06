@@ -3,6 +3,8 @@ var cors = require('cors');
 const authRoute = require('../src/routes/auth');
 const bookRoute = require('../src/routes/books');
 const userRoute = require('../src/routes/user');
+const bookIssueRoute = require('../src/routes/bookIssueRequest');
+
 
 
 // const postRoute = require('../src/routes/posts');
@@ -24,6 +26,8 @@ app.use(cors());
 app.use('/api/user',authRoute);
 app.use('/api/user',bookRoute);
 app.use('/api/user',userRoute);
+app.use('/api/user',bookIssueRoute);
+
 
 
 
