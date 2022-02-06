@@ -75,9 +75,24 @@ router.post('/books', upload.single('fileName'), async (req, res, next) => {
     next();
 });
 
+router.get('/books/:id', async (req, res) => {
+
+    const bookId = req.params.id;
+
+    //getting book by ID
+    try {
+        const book = await Book.findById(bookId);
+        if (!book) {
+            return res.status(404).send()
+        }
+        res.status(200).send(book)
+        } catch (error) {
+             res.status(500).send()
+    }
+})
+
 
 router.get('/books', async (req, res, next) => {
-
     try {
         const books = await Book.find({});
         // console.log(books);
@@ -87,5 +102,7 @@ router.get('/books', async (req, res, next) => {
     }
     next();
 })
+
+
 
 module.exports = router

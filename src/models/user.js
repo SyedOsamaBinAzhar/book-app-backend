@@ -38,6 +38,12 @@ const userSchema = mongoose.Schema( {
     date : {
         type : Date,
         default : Date.now,
+    },
+    address : {
+        type : String
+    },
+    contact : {
+        type : Number
     }
 });
 
