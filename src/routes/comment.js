@@ -28,11 +28,24 @@ router.post('/comments', async (req, res) => {
     }
 })
 
-//read all books
-router.get('/comments', async (req, res, next) => {
+//read comments of given book id 
+router.get('/comments/:id', async (req, res, next) => {
+
+    const bookId = req.params.id;
+
     try {
+        //get all comments
         const comments = await Comment.find({});
-        res.status(200).send(comments)
+        
+        //comments of specific book Id filtered from all comments
+        const filteredComments = comments.filter((comment) => comment.bookId === bookId);
+
+        if (!filteredComments) {
+            return res.status(404).send()
+        }
+
+        res.status(200).send(filteredComments)
+
     } catch (error) {
         res.status(400).send(error);
     }
