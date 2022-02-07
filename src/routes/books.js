@@ -10,7 +10,7 @@ const {
 } = require("firebase/storage");
 const Book = require('../models/book');
 
-
+//write a book
 router.post('/books', upload.single('fileName'), async (req, res, next) => {
 
     const imagesRef = ref(storageRef, 'images');
@@ -75,6 +75,7 @@ router.post('/books', upload.single('fileName'), async (req, res, next) => {
     next();
 });
 
+//read a book by id
 router.get('/books/:id', async (req, res) => {
 
     const bookId = req.params.id;
@@ -91,7 +92,7 @@ router.get('/books/:id', async (req, res) => {
     }
 })
 
-
+//read all books
 router.get('/books', async (req, res, next) => {
     try {
         const books = await Book.find({});
