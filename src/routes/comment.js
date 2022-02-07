@@ -36,10 +36,9 @@ router.get('/comments/:id', async (req, res, next) => {
     try {
         //get all comments
         const comments = await Comment.find({});
-        
+
         //comments of specific book Id filtered from all comments
         const filteredComments = comments.filter((comment) => comment.bookId === bookId);
-
         if (!filteredComments) {
             return res.status(404).send()
         }

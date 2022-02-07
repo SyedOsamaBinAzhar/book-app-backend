@@ -1,3 +1,5 @@
+//Could not verify tokens on frontend. Learned to use them.
+
 const jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {

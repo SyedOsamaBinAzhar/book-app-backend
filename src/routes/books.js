@@ -96,7 +96,7 @@ router.get('/books/:id', async (req, res) => {
 router.get('/books', async (req, res, next) => {
     try {
         const books = await Book.find({});
-        // console.log(books);
+
         res.status(200).send(books)
     } catch (error) {
         res.status(400).send(error);
