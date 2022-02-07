@@ -4,14 +4,7 @@ const authRoute = require('../src/routes/auth');
 const bookRoute = require('../src/routes/books');
 const userRoute = require('../src/routes/user');
 const commentRoute = require('../src/routes/comment');
-
 const bookIssueRoute = require('../src/routes/bookIssueRequest');
-
-
-
-// const postRoute = require('../src/routes/posts');
-const busboy = require('connect-busboy');
-const bodyParser = require('body-parser');
 
 
 // Default options, no immediate parsing
@@ -30,9 +23,6 @@ app.use('/api/user', bookRoute);
 app.use('/api/user', userRoute);
 app.use('/api/user', commentRoute);
 app.use('/api/user', bookIssueRoute);
-
-
-
 
 app.listen(port, () => {
     console.log("Server is up on port " + port);
