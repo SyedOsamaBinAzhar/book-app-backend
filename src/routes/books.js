@@ -17,7 +17,6 @@ router.post('/books', upload.single('fileName'), async (req, res, next) => {
 
     //getting array buffer and files original name;
     const buffer = req.file.buffer;
-    console.log("buffer", buffer);
     const imageName = req.file.originalname;
     // console.log("imageName", imageName);
 
