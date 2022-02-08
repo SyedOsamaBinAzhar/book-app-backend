@@ -3,7 +3,12 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-mongoose.connect('mongodb://127.0.0.1:27017/book-app', {
+exports.connection = async() => {
+    await mongoose.connect('mongodb+srv://osamaazhar:osamaazhar123@cluster0.v4lbr.mongodb.net/book-app-vd?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     // useCreateIndex: true
 });
+console.log("database connected");
+}
+
+
