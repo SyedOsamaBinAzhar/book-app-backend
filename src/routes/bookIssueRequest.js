@@ -9,7 +9,7 @@ router.post('/request', async (req, res) => {
         await request.save()
         res.status(201).send(request)
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).send("Something Went Wrong Please Try Again.")
     }
 });
 

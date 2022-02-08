@@ -17,7 +17,9 @@ router.post('/books', upload.single('fileName'), async (req, res, next) => {
 
     //getting array buffer and files original name;
     const buffer = req.file.buffer;
+    console.log("buffer", buffer);
     const imageName = req.file.originalname;
+    // console.log("imageName", imageName);
 
     //creating space reference 
     const spaceRef = ref(imagesRef, imageName);
@@ -39,14 +41,14 @@ router.post('/books', upload.single('fileName'), async (req, res, next) => {
     try {
         //uploading image to firebase
         await uploadBytes(spaceRef, uint8View).then((snapshot) => {
-            console.log('Uploaded Image!');
+            console.log('Could not save image please try again');
         });
 
         //getting download Url
         downloadUrl = await getDownloadURL(ref(spaceRef));
 
     } catch (error) {
-        res.send(error);
+        res.send("Could not save image please try again");
     }
 
     //Create And Validate a newbook
@@ -69,7 +71,7 @@ router.post('/books', upload.single('fileName'), async (req, res, next) => {
             bookName: savedBook.bookName,
         });
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).send("Could not save book please try again!")
     }
 
     next();
@@ -87,8 +89,8 @@ router.get('/books/:id', async (req, res) => {
             return res.status(404).send()
         }
         res.status(200).send(book)
-        } catch (error) {
-             res.status(500).send()
+    } catch (error) {
+        res.status(500).send()
     }
 })
 
